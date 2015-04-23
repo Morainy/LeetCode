@@ -1,3 +1,4 @@
+
 /*
  * =====================================================================================
  *
@@ -69,4 +70,4 @@ int main(int argc ,char * argv[])
 	Solution sol;
 	
 	cout<<"res = "<<sol.lengthOfLongestSubstring(str)<<endl;
-}
+
