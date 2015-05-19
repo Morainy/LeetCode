@@ -25,33 +25,67 @@ class Solution{
 		int longestValidParentheses(string s);
 };
 
-int Solution::longestValidParentheses(string s)
+/*int Solution::longestValidParentheses(string s)
 {
 	stack<char> stack;
 	int res = 0;
-	bool flag = true;		//判断是否连续
 	int length = 0;
+	//bool flag;
 	for(int i = 0 ; i < s.length() ; i++){
-		if(!stack.empty() && s.at(i) == ')'){
+		if(s.at(i) == ')'){
+			if(stack.empty()){
+				stack.push(s.at(i));
+				continue;
+			}
 			if(stack.top() == '('){
-				if(flag == true){
-					length += 2;
-				}
+				length += 2;
 				if(length > res){
 					res = length;
 				}
 				stack.pop();
-				flag = true;
 			}else{
 				stack.push(s.at(i));
-				flag = false;
 				length = 0;
 			}
 		}else{
 			stack.push(s.at(i));
-			if(flag == true){
-				length = 0;
-				flag = false;
+			flag = false;
+			length = 0;
+		}
+	}
+	return res;
+}*/
+
+int Solution::longestValidParentheses(string s)
+{
+	int res = 0;
+	if(s.length() <=0){
+		return res;
+	}
+	int start = -1;
+	int length = 0;
+	stack<int> stack;
+	for(int i = 0 ; i < s.length() ; i++){
+		if(s.at(i) == '('){
+			stack.push(i);
+		}else{
+			if(!stack.empty()){
+				stack.pop();
+				if(stack.empty()){
+					length = i-start;
+					if(length > res){
+						res = length;
+					}
+				}
+				else{
+					length = i - stack.top();
+					if(length > res){
+						res = length;
+					}
+				}
+			}
+			else{
+				start = i;
 			}
 		}
 	}
