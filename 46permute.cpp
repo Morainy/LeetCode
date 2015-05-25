@@ -1,12 +1,12 @@
 /*
  * =====================================================================================
  *
- *       Filename:  31nextPermutation.cpp
+ *       Filename:  46permute.cpp
  *
  *    Description:  
  *
  *        Version:  1.0
- *        Created:  2015年05月19日 08时58分44秒
+ *        Created:  2015年05月24日 15时06分04秒
  *       Revision:  none
  *       Compiler:  gcc
  *
@@ -16,16 +16,35 @@
  * =====================================================================================
  */
 #include <vector>
-#include <algorithm>
 #include <iostream>
+#include <algorithm>
 using namespace std;
 
 class Solution{
 	public:
+		vector<vector<int> > permute(vector<int>& nums);
 		void nextPermutation(vector<int>& nums);
 		void swap(int& a , int& b);
 };
 
+vector<vector<int> > Solution::permute(vector<int>& nums)
+{
+	vector<vector<int> > res;
+	if(nums.size() < 1){
+		return res;
+	}
+	sort(nums.begin() , nums.end());
+	res.push_back(nums);
+	while(1){
+		nextPermutation(nums);
+		if(nums == res[0]){
+			break;
+		}else{
+			res.push_back(nums);
+		}
+	}
+	return res;
+}
 void Solution::swap(int& a , int& b)
 {
 	int tmp = a;
@@ -55,19 +74,22 @@ void Solution::nextPermutation(vector<int>& nums)
 	}
 	sort(it1,nums.end());
 }
-
-int main(int argc ,char * argv[])
+int main(int argc , char * argv[])
 {
 	Solution sol;
-	vector<int> v;
-	v.push_back(2);
-	v.push_back(3);
-	v.push_back(1);
+	vector<int> nums;
+	nums.push_back(0);
+	nums.push_back(-1);
+	nums.push_back(1);
 
-	sol.nextPermutation(v);
-	for(int i = 0 ; i < v.size() ; i++){
-		cout<<v[i]<<" ";
+	vector<vector<int> > res;
+	res = sol.permute(nums);
+
+	for(int i = 0 ; i < res.size() ; i++){
+		for(int j = 0 ; j < res[i].size() ; j++){
+			cout<<res[i][j]<<" ";
+		}
+		cout<<endl;
 	}
-	cout<<endl;
 }
 
