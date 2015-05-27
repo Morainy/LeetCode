@@ -86,7 +86,7 @@ vector<vector<string> > Solution::solveNQueens(int n)
 int main(int argc , char * argv[])
 {
 	Solution sol;
-	int n = 12;
+	int n = 10;
 	vector<vector<string> > res = sol.solveNQueens(n);
 	for(int k = 0 ; k < res.size() ; k++){
 		for(int i = 0 ; i < n ; i++){
