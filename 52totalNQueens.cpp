@@ -1,12 +1,12 @@
 /*
  * =====================================================================================
  *
- *       Filename:  51solveNQueens.cpp
+ *       Filename:  52totalNQueens.cpp
  *
  *    Description:  
  *
  *        Version:  1.0
- *        Created:  2015年05月25日 16时36分51秒
+ *        Created:  2015年05月27日 11时23分29秒
  *       Revision:  none
  *       Compiler:  gcc
  *
@@ -15,7 +15,6 @@
  *
  * =====================================================================================
  */
-
 #include <vector>
 #include <string>
 #include <iostream>
@@ -23,21 +22,25 @@ using namespace std;
 
 class Solution{
 	public:
-		vector<vector<string> > solveNQueens(int n);
-		bool isValid(vector<string>& v, int i , int j , int n);
-		void solve(vector<vector<string> >& res , vector<string>& v , int i , int n);
+		int totalNQueens(int n);
+		void solve(vector<string>& v , int i , int n);
+		bool isValid(vector<string>& v , int i , int j , int n);
+		Solution():count(0){}
+	private:
+		int count;
 };
 
-void Solution::solve(vector<vector<string> >& res ,vector<string>& v , int i , int n)
+
+void Solution::solve(vector<string>& v , int i , int n)
 {
 	if(i == n){
-		res.push_back(v);
+		count++;		
 		return;
 	}
 	for(int j = 0 ; j < n ; j++){
 		if(isValid(v , i , j , n)){
 			v[i][j] = 'Q';
-			solve(res , v , i+1 , n);
+			solve(v , i+1 , n);
 			v[i][j] = '.';
 		}
 	}
@@ -70,33 +73,23 @@ bool Solution::isValid(vector<string>& v , int i , int j , int n)
 
 	return true;
 }
-vector<vector<string> > Solution::solveNQueens(int n)
+int Solution::totalNQueens(int n)
 {
-	vector<vector<string> > res;
 	vector<string> vTmp;
 	vTmp.resize(n);
 	string tmp(n , '.');
 	for(int i = 0 ; i < n ; i++){
 		vTmp[i] = tmp;
 	}
-	solve(res , vTmp , 0 , n);	
-	return res;
+	solve(vTmp , 0 , n);	
+	return count;
 }
 
 int main(int argc , char * argv[])
 {
 	Solution sol;
-	int n = 12;
-	vector<vector<string> > res = sol.solveNQueens(n);
-	for(int k = 0 ; k < res.size() ; k++){
-		for(int i = 0 ; i < n ; i++){
-			for(int j = 0 ; j < n ; j++){
-				cout<<res[k][i].at(j)<<" ";
-			}
-			cout<<endl;
-		}
-		cout<<endl<<endl;
-	}
-
-	cout<< "res.size() = " <<res.size()<<endl;
+	int n = 9;
+	int res = sol.totalNQueens(n);
+	cout<<"res = "<<res<<endl;
 }
+
