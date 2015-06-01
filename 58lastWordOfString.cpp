@@ -28,19 +28,23 @@ class Solution{
 
 int Solution::lengthOfLastWord(string str)
 {
-	char * last;
-	char * ptr = (char*)str.c_str();
+	char * last , * prev = NULL;
+	char * ptr = const_cast<char*>(str.c_str());
 	last = strtok(ptr , " ");
 	while(last != NULL){
-		last = strtok(ptr , " ");
+		prev = last;
+		last = strtok(NULL , " ");
 	}
-	return strlen(last);
+	if(!prev){
+		return 0;
+	}
+	return strlen(prev);
 }
 
 
 int main(int argc , char * argv[])
 {
-	string str = "Hello world";
+	string str = "";
 	Solution sol;
 	cout<<"res = " << sol.lengthOfLastWord(str)<<endl;
 }
